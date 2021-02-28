@@ -70,18 +70,25 @@ export function getBubbleSortAnimations(array) {
 
     if (len <= 1) return array;
 
-    for (let i = 0; i < len; i++) {
-        for (let j = 0; j < len; j++) {
-            if (array[j] > array[j + 1]) {
-                animations.push([j, j + 1]);
+    for (let i = 0; i < len - 1; i++) {
+        for (let j = 0; j < len-1; j++) {
+            animations.push([j, j + 1]);
+            animations.push([j, j + 1]);
 
-                // let tmp = array[j];
-                // array[j] = array[j + 1];
-                // array[j + 1] = tmp;
+            if (array[j] > array[j + 1]) {
+                let tmp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = tmp;
+
+                animations.push([j, array[j+1]]);
+                animations.push([j + 1, tmp]);
+            }
+            else{
+                animations.push([j, array[j]]);
+                animations.push([j+1, array[j+1]]);
             }
         }
     }
-
     return animations;
 }
 

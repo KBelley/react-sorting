@@ -6,7 +6,7 @@ import {getBubbleSortAnimations, getMergeSortAnimations} from './sortingAlgorith
 const ANIMATION_SPEED_MS = 5;
 
 // Change this value for the number of bars (value) in the array.
-const NUMBER_OF_ARRAY_BARS = 200;
+const NUMBER_OF_ARRAY_BARS = 100;
 
 // This is the main color of the array bars.
 const PRIMARY_COLOR = 'turquoise';
@@ -76,20 +76,59 @@ function App() {
   function handleBubbleSort(){
     const animations = getBubbleSortAnimations(values);
 
+    // console.log(animations.length);
+
+    console.time('test');
+
     for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName('array-bar');
       const [barOneIdx, barTwoIdx] = animations[i];
       const barOneStyle = arrayBars[barOneIdx].style;
       const barTwoStyle = arrayBars[barTwoIdx].style;
-      // const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
-      const color = 'red';
+      let color = i % 2 !== 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+      let isColorChange = i % 3 !== 0 && i % 4 !== 0 ? true : false
+      // const color = 'red';
 
-      setTimeout(() => {
-        console.log(i);
-        barOneStyle.backgroundColor = color;
-        barTwoStyle.backgroundColor = color;
-      }, i * ANIMATION_SPEED_MS);
+      if (isColorChange) {
+        if (i % 2 === 0)
+        {
+          color = SECONDARY_COLOR
+        }else{
+          color = PRIMARY_COLOR
+        }
+
+        setTimeout(() => {
+          // console.log(color);
+          // console.log(barTwoIdx);
+          barOneStyle.backgroundColor = color;
+          barTwoStyle.backgroundColor = color;
+  
+          // setTimeout(() => {
+          //   // console.log(i);
+          //   barOneStyle.backgroundColor = SECONDARY_COLOR;
+          //   barTwoStyle.backgroundColor = SECONDARY_COLOR;
+          // }, i * (ANIMATION_SPEED_MS * 2));
+        }, i * ANIMATION_SPEED_MS);
+      }else{
+        if(i % 2 === 0 ){
+          setTimeout(() => {
+            const [barOneIdx, newHeight] = animations[i];
+            const barOneStyle = arrayBars[barOneIdx].style;
+            barOneStyle.height = (100 / MAX_VALUE) * newHeight + '%';
+          }, i * ANIMATION_SPEED_MS);
+        }else{
+          setTimeout(() => {
+            const [barOneIdx, newHeight] = animations[i];
+            const barOneStyle = arrayBars[barOneIdx].style;
+            barOneStyle.height = (100 / MAX_VALUE) * newHeight + '%';
+          }, i * ANIMATION_SPEED_MS);
+        }
+        
+      }
+      
     }
+
+    console.timeEnd('test');
   }
 
   return (
