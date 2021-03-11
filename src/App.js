@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import {useState } from 'react';
 import './App.css';
-import {getBubbleSortAnimations, getMergeSortAnimations} from './sortingAlgorithms.js'
+import sortingAlgorithms from './sortingAlgorithms.js'
 
 // Change this value for the speed of the animations.
 const ANIMATION_SPEED_MS = 5;
@@ -40,14 +40,13 @@ function initArray(){
 
 function App() {
   let [values, setValues] = useState(myValues);
-  // let [values, setValues] = useState([{key:1, value:1},{key:2, value:2},{key:3, value:3},{key:4, value:4},{key:5, value:5},{key:6, value:6},{key:7, value:7},{key:8, value:8},{key:9, value:9}]);
-
+  
   function handleNewArray() {
     setValues(initArray);
   }
 
   function handleMergeSort(){
-    const animations = getMergeSortAnimations(values);
+    const animations = sortingAlgorithms.getMergeSortAnimations(values);
 
     for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName('array-bar');
@@ -74,61 +73,51 @@ function App() {
   }
 
   function handleBubbleSort(){
-    const animations = getBubbleSortAnimations(values);
-
-    // console.log(animations.length);
-
-    console.time('test');
+    const animations = sortingAlgorithms.getBubbleSortAnimations(values);
+    let cnt = 1;
 
     for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName('array-bar');
       const [barOneIdx, barTwoIdx] = animations[i];
-      const barOneStyle = arrayBars[barOneIdx].style;
-      const barTwoStyle = arrayBars[barTwoIdx].style;
+      
       let color = i % 2 !== 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
-      let isColorChange = i % 3 !== 0 && i % 4 !== 0 ? true : false
-      // const color = 'red';
+      let isNotColorChange = ((cnt) % 3 === 0 && ((cnt)) % 4 !== 2) || (cnt) % 4 === 0;
+      let isColorChange = !isNotColorChange;
 
       if (isColorChange) {
-        if (i % 2 === 0)
+        const barOneStyle = arrayBars[barOneIdx].style;
+        const barTwoStyle = arrayBars[barTwoIdx].style;
+
+        if (cnt % 2 === 0)
         {
-          color = SECONDARY_COLOR
-        }else{
           color = PRIMARY_COLOR
+        }else{
+          color = SECONDARY_COLOR
         }
 
         setTimeout(() => {
-          // console.log(color);
-          // console.log(barTwoIdx);
           barOneStyle.backgroundColor = color;
           barTwoStyle.backgroundColor = color;
-  
-          // setTimeout(() => {
-          //   // console.log(i);
-          //   barOneStyle.backgroundColor = SECONDARY_COLOR;
-          //   barTwoStyle.backgroundColor = SECONDARY_COLOR;
-          // }, i * (ANIMATION_SPEED_MS * 2));
         }, i * ANIMATION_SPEED_MS);
       }else{
-        if(i % 2 === 0 ){
-          setTimeout(() => {
-            const [barOneIdx, newHeight] = animations[i];
-            const barOneStyle = arrayBars[barOneIdx].style;
-            barOneStyle.height = (100 / MAX_VALUE) * newHeight + '%';
-          }, i * ANIMATION_SPEED_MS);
-        }else{
-          setTimeout(() => {
-            const [barOneIdx, newHeight] = animations[i];
-            const barOneStyle = arrayBars[barOneIdx].style;
-            barOneStyle.height = (100 / MAX_VALUE) * newHeight + '%';
-          }, i * ANIMATION_SPEED_MS);
-        }
-        
-      }
-      
-    }
+        setTimeout(() => {
+          const [barOneIdx, newHeight] = animations[i];
+          const barOneStyle = arrayBars[barOneIdx].style;
+          barOneStyle.height = (100 / MAX_VALUE) * newHeight + '%';
+        }, i * ANIMATION_SPEED_MS);
+      } 
 
-    console.timeEnd('test');
+      if (cnt < 4){
+        cnt++;
+      }else{
+        cnt = 1;
+      }
+    }
+  }
+
+  function handleHeapSort(){
+    const arrayBars = document.getElementsByClassName('array-bar');
+    const animations = sortingAlgorithms.getHeapSortAnimations(values);
   }
 
   return (
@@ -137,6 +126,7 @@ function App() {
         <input type='button' onClick={handleNewArray} value='New Array' />
         <input type='button' onClick={handleMergeSort} value='Merge Sort' />
         <input type='button' onClick={handleBubbleSort} value='Bubble Sort' />
+        <input type='button' onClick={handleHeapSort} value='Heap Sort' />
 
         <div className='bar-wrapper'>
           {values.map((value, idx) => (
