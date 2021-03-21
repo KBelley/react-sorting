@@ -142,14 +142,14 @@ function App() {
         </h3>
       </header>
 
-      <section>
+      <section className='inputs'>
         <input type='button' onClick={handleNewArray} value='New Array' disabled={isProcessing} />
         <input type='button' onClick={handleMergeSort} value='Merge Sort' disabled={isProcessing} />
         <input type='button' onClick={handleBubbleSort} value='Bubble Sort' disabled={isProcessing} />
         <input type='button' onClick={handleHeapSort} value='Heap Sort' disabled={isProcessing} />
       </section>
 
-      <section>
+      <section className='bars'>
         <div className='bar-wrapper'>
           {values.map((value, idx) => (
             <div

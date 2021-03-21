@@ -32,23 +32,29 @@ table {
   border-spacing: 0;
 }
 
+/* 
+    flex: 0 1 auto
+    The above is shorthand for:
+    flex-grow: 0,
+    flex-shrink: 1,
+    flex-basis: auto
+*/
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
-}
-
 .App {
+  height: 100vh;
   background-color: #282c34;
   display: flex;
   flex-direction: column;
+  flex-flow: column;
 }
 
-.App-header {
+header {
+  flex: 0 1 auto;
   display: flex;
   flex-direction: column;
   font-size: calc(10px + 2vmin);
@@ -56,7 +62,7 @@ code {
   text-align: left;
   padding: 1rem;
 }
-.App-header h1 {
+header h1 {
   margin-bottom: 10px;
 }
 
@@ -64,12 +70,58 @@ section {
   padding: 1rem;
 }
 
+section.inputs {
+  flex: 0 1 10px;
+  display: flex;
+  gap: 10px;
+}
+section.inputs > * {
+  flex: 1;
+}
+
+section.bars {
+  flex: 1 1 auto;
+  padding: 1rem 0 0 0;
+}
+
 .bar-wrapper {
   display: flex;
   max-width: 100vw;
   width: 100%;
   height: 100%;
-  align-items: baseline;
+  align-items: flex-end;
+  box-sizing: border-box;
+}
+
+input[type=button] {
+  position: relative;
+  background: none;
+  color: white;
+  width: 256px;
+  height: 32px;
+  line-height: 1;
+  transition: all 0.3s;
+  outline: none;
+  border: 1px solid white;
+  cursor: pointer;
+}
+input[type=button] span {
+  transition: all 0.3s;
+  transform: scale(1, 1);
+}
+input[type=button]:before, input[type=button]:after {
+  content: "";
+  position: absolute;
+  transition: all 0.3s;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+input[type=button]:disabled {
+  color: gray;
+  border-color: gray;
 }
 
 /*# sourceMappingURL=App.css.map */
