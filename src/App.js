@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './styles/App.css';
+import './styles/css/App.css';
 import sortingAlgorithms from './sortingAlgorithms.js'
 
 // Change this value for the speed of the animations.
@@ -147,7 +147,9 @@ function App() {
         <input type='button' onClick={handleMergeSort} value='Merge Sort' disabled={isProcessing} />
         <input type='button' onClick={handleBubbleSort} value='Bubble Sort' disabled={isProcessing} />
         <input type='button' onClick={handleHeapSort} value='Heap Sort' disabled={isProcessing} />
+      </section>
 
+      <section>
         <div className='bar-wrapper'>
           {values.map((value, idx) => (
             <div
