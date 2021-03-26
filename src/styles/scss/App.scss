@@ -23,20 +23,6 @@ body {
     flex-flow: column;
 }
 
-header {
-    flex: 0 1 auto;
-    display: flex;
-    flex-direction: column;
-    font-size: calc(10px + 2vmin);
-    color: white;
-    text-align: left;
-    padding: 1rem;
-
-    h1 {
-        margin-bottom: 10px;
-    }
-}
-
 section {
     padding: 1rem;
 }

@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import React from 'react';
 import './styles/css/App.css';
-import sortingAlgorithms from './sortingAlgorithms.js'
+import sortingAlgorithms from './sortingAlgorithms.js';
+import { Header } from './components/Header';
+import { Button } from './components/Button';
 
 // Change this value for the speed of the animations.
 const ANIMATION_SPEED_MS = 5;
@@ -84,6 +87,7 @@ function App() {
   }
 
   function handleBubbleSort() {
+    setProcessingState(true);
     const animations = sortingAlgorithms.getBubbleSortAnimations(values);
     let cnt = 1;
 
@@ -108,12 +112,20 @@ function App() {
         setTimeout(() => {
           barOneStyle.backgroundColor = color;
           barTwoStyle.backgroundColor = color;
+
+          if (i === animations.length - 1) {
+            setProcessingState(false);
+          }
         }, i * ANIMATION_SPEED_MS);
       } else {
         setTimeout(() => {
           const [barOneIdx, newHeight] = animations[i];
           const barOneStyle = arrayBars[barOneIdx].style;
           barOneStyle.height = (100 / MAX_VALUE) * newHeight + '%';
+
+          if (i === animations.length - 1) {
+            setProcessingState(false);
+          }
         }, i * ANIMATION_SPEED_MS);
       }
 
@@ -132,21 +144,13 @@ function App() {
 
   return (
     <div className='App'>
-      <header className='App-header'>
-        <h1>
-          Sorting Algorithms Visualiser
-        </h1>
-
-        <h3>
-          Using <a href='https://reactjs.org/' target='_blank' rel='noreferrer'>React</a>
-        </h3>
-      </header>
+      <Header />
 
       <section className='inputs'>
-        <input type='button' onClick={handleNewArray} value='New Array' disabled={isProcessing} />
-        <input type='button' onClick={handleMergeSort} value='Merge Sort' disabled={isProcessing} />
-        <input type='button' onClick={handleBubbleSort} value='Bubble Sort' disabled={isProcessing} />
-        <input type='button' onClick={handleHeapSort} value='Heap Sort' disabled={isProcessing} />
+        <Button onClick={handleNewArray} label='New Array' primary={true} disabled={isProcessing} />
+        <Button onClick={handleMergeSort} label='Merge Sort' primary={true} disabled={isProcessing} />
+        <Button onClick={handleBubbleSort} label='Bubble Sort' primary={true} disabled={isProcessing} />
+        <Button onClick={handleHeapSort} label='Heap Sort' primary={true} disabled={isProcessing} />
       </section>
 
       <section className='bars'>
