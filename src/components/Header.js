@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import '../styles/css/header.css';
 
-export const Header = ({ }) => (
+export const Header = () => (
   <header className='App-header'>
     <h1>
       Sorting Algorithms Visualiser

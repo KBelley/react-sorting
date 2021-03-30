@@ -133,7 +133,9 @@ function swap(arr, i, i2, animations){
     return arr;
 }
 
-export default { getBubbleSortAnimations, getMergeSortAnimations, getHeapSortAnimations }
+const sortingAlgorithms = { getBubbleSortAnimations, getMergeSortAnimations, getHeapSortAnimations }
+
+export default sortingAlgorithms;
 
 // let bubbleSort = (inputArr) => {
 //     let len = inputArr.length;

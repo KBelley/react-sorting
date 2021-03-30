@@ -51,10 +51,11 @@ function App() {
   }
 
   function handleMergeSort() {
-    setProcessingState(true);
     const animations = sortingAlgorithms.getMergeSortAnimations(values);
 
     for (let i = 0; i < animations.length; i++) {
+      // setProcessingState(true);
+
       const arrayBars = document.getElementsByClassName('array-bar');
       const isColorChange = i % 3 !== 2;
 
@@ -137,10 +138,10 @@ function App() {
     }
   }
 
-  function handleHeapSort() {
-    const arrayBars = document.getElementsByClassName('array-bar');
-    const animations = sortingAlgorithms.getHeapSortAnimations(values);
-  }
+  // function handleHeapSort() {
+  //   const arrayBars = document.getElementsByClassName('array-bar');
+  //   const animations = sortingAlgorithms.getHeapSortAnimations(values);
+  // }
 
   return (
     <div className='App'>
@@ -150,7 +151,7 @@ function App() {
         <Button onClick={handleNewArray} label='New Array' primary={true} disabled={isProcessing} />
         <Button onClick={handleMergeSort} label='Merge Sort' primary={true} disabled={isProcessing} />
         <Button onClick={handleBubbleSort} label='Bubble Sort' primary={true} disabled={isProcessing} />
-        <Button onClick={handleHeapSort} label='Heap Sort' primary={true} disabled={isProcessing} />
+        {/* <Button onClick={handleHeapSort} label='Heap Sort' primary={true} disabled={isProcessing} /> */}
       </section>
 
       <section className='bars'>
